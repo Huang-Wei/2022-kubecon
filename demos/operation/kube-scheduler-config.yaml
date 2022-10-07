@@ -1,0 +1,225 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+clientConnection:
+  acceptContentTypes: ""
+  burst: 4000
+  contentType: application/vnd.kubernetes.protobuf
+  kubeconfig: /root/.kube/config
+  qps: 2000
+enableContentionProfiling: true
+enableProfiling: true
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: false
+  leaseDuration: 15s
+  renewDeadline: 10s
+  resourceLock: leases
+  resourceName: kube-scheduler
+  resourceNamespace: kube-system
+  retryPeriod: 2s
+parallelism: 16
+percentageOfNodesToScore: 100
+podInitialBackoffSeconds: 1
+podMaxBackoffSeconds: 10
+profiles:
+- pluginConfig:
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: DefaultPreemptionArgs
+      minCandidateNodesAbsolute: 100
+      minCandidateNodesPercentage: 10
+    name: DefaultPreemption
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      hardPodAffinityWeight: 1
+      kind: InterPodAffinityArgs
+    name: InterPodAffinity
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: NodeAffinityArgs
+    name: NodeAffinity
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: NodeResourcesBalancedAllocationArgs
+      resources:
+      - name: cpu
+        weight: 1
+      - name: memory
+        weight: 1
+    name: NodeResourcesBalancedAllocation
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: NodeResourcesFitArgs
+      scoringStrategy:
+        resources:
+        - name: cpu
+          weight: 1
+        - name: memory
+          weight: 1
+        type: LeastAllocated
+    name: NodeResourcesFit
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      defaultingType: System
+      kind: PodTopologySpreadArgs
+    name: PodTopologySpread
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      bindTimeoutSeconds: 600
+      kind: VolumeBindingArgs
+    name: VolumeBinding
+  plugins:
+    bind: {}
+    filter: {}
+    multiPoint:
+      enabled:
+      - name: PrioritySort
+        weight: 0
+      - name: NodeUnschedulable
+        weight: 0
+      - name: NodeName
+        weight: 0
+      - name: TaintToleration
+        weight: 3
+      - name: NodeAffinity
+        weight: 2
+      - name: NodePorts
+        weight: 0
+      - name: NodeResourcesFit
+        weight: 1
+      - name: VolumeRestrictions
+        weight: 0
+      - name: EBSLimits
+        weight: 0
+      - name: GCEPDLimits
+        weight: 0
+      - name: NodeVolumeLimits
+        weight: 0
+      - name: AzureDiskLimits
+        weight: 0
+      - name: VolumeBinding
+        weight: 0
+      - name: VolumeZone
+        weight: 0
+      - name: PodTopologySpread
+        weight: 2
+      - name: InterPodAffinity
+        weight: 2
+      - name: DefaultPreemption
+        weight: 0
+      - name: NodeResourcesBalancedAllocation
+        weight: 1
+      - name: ImageLocality
+        weight: 1
+      - name: DefaultBinder
+        weight: 0
+    permit: {}
+    postBind: {}
+    postFilter: {}
+    preBind: {}
+    preFilter: {}
+    preScore: {}
+    queueSort: {}
+    reserve: {}
+    score: {}
+  schedulerName: default-kube-scheduler
+- pluginConfig:
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: DefaultPreemptionArgs
+      minCandidateNodesAbsolute: 100
+      minCandidateNodesPercentage: 10
+    name: DefaultPreemption
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      hardPodAffinityWeight: 1
+      kind: InterPodAffinityArgs
+    name: InterPodAffinity
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: NodeAffinityArgs
+    name: NodeAffinity
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: NodeResourcesBalancedAllocationArgs
+      resources:
+      - name: cpu
+        weight: 1
+      - name: memory
+        weight: 1
+    name: NodeResourcesBalancedAllocation
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: NodeResourcesFitArgs
+      scoringStrategy:
+        resources:
+        - name: cpu
+          weight: 1
+        - name: memory
+          weight: 1
+        type: MostAllocated
+    name: NodeResourcesFit
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      defaultingType: System
+      kind: PodTopologySpreadArgs
+    name: PodTopologySpread
+  - args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      bindTimeoutSeconds: 600
+      kind: VolumeBindingArgs
+    name: VolumeBinding
+  plugins:
+    bind: {}
+    filter: {}
+    multiPoint:
+      enabled:
+      - name: PrioritySort
+        weight: 0
+      - name: NodeUnschedulable
+        weight: 0
+      - name: NodeName
+        weight: 0
+      - name: TaintToleration
+        weight: 3
+      - name: NodeAffinity
+        weight: 2
+      - name: NodePorts
+        weight: 0
+      - name: NodeResourcesFit
+        weight: 1
+      - name: VolumeRestrictions
+        weight: 0
+      - name: EBSLimits
+        weight: 0
+      - name: GCEPDLimits
+        weight: 0
+      - name: NodeVolumeLimits
+        weight: 0
+      - name: AzureDiskLimits
+        weight: 0
+      - name: VolumeBinding
+        weight: 0
+      - name: VolumeZone
+        weight: 0
+      - name: PodTopologySpread
+        weight: 2
+      - name: InterPodAffinity
+        weight: 2
+      - name: DefaultPreemption
+        weight: 0
+      - name: NodeResourcesBalancedAllocation
+        weight: 1
+      - name: ImageLocality
+        weight: 1
+      - name: DefaultBinder
+        weight: 0
+    permit: {}
+    postBind: {}
+    postFilter: {}
+    preBind: {}
+    preFilter: {}
+    preScore: {}
+    queueSort: {}
+    reserve: {}
+    score: {}
+  schedulerName: best-fit-scheduler

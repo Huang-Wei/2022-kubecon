@@ -1,0 +1,21 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: false
+clientConnection:
+  kubeconfig: "/root/.kube/config"
+  qps: 2000
+  burst: 4000
+profiles:
+- schedulerName: default-kube-scheduler
+  plugins:
+- schedulerName: best-fit-scheduler
+  plugins:
+  pluginConfig:
+    - name: NodeResourcesFit
+      args:
+        scoringStrategy:
+          type: MostAllocated
+podInitialBackoffSeconds: 1
+podMaxBackoffSeconds: 10
+percentageOfNodesToScore: 100

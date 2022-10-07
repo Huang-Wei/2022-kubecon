@@ -1,0 +1,5 @@
+Requirements
+go1.19:  https://go.dev/doc/install
+Kubernetes: https://github.com/kubernetes/kubernetes
+Minikube: https://minikube.sigs.k8s.io/docs/start/
+
