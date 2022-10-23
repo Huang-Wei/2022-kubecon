@@ -28,6 +28,12 @@ data:
     kind: KubeSchedulerConfiguration
     profiles:
     - schedulerName: spread-scheduler
+      plugins:
+        score:
+          enabled:
+          - name: NodeResourcesFit
+          disabled:
+          - name: "*"
       pluginConfig:
       - name: NodeResourcesFit
         args:
@@ -45,6 +51,12 @@ data:
                 score: 0
             type: RequestedToCapacityRatio
     - schedulerName: pack-scheduler
+      plugins:
+        score:
+          enabled:
+          - name: NodeResourcesFit
+          disabled:
+          - name: "*"
       pluginConfig:
       - name: NodeResourcesFit
         args:
