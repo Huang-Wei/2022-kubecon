@@ -1,0 +1,40 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+- name: default-scheduler
+  pluginConfig:
+  - args:
+      scoringStrategy:
+        resources:
+        - name: cpu
+          weight: 2
+        - name: memory
+          weight: 1
+        - name: nvidia.com/gpu
+          weight: 3
+        requestedToCapacityRatio:
+          shape:
+          - utilization: 0
+            score: 0
+          - utilization: 30
+            score: 1
+          - utilization: 50
+            score: 2
+          - utilization: 70
+            score: 3
+          - utilization: 80
+            score: 4
+          - utilization: 85
+            score: 5
+          - utilization: 90
+            score: 6
+          - utilization: 94
+            score: 7
+          - utilization: 97
+            score: 8
+          - utilization: 99
+            score: 9
+          - utilization: 100
+            score: 10
+        type: RequestedToCapacityRatio
+    name: NodeResourcesFit

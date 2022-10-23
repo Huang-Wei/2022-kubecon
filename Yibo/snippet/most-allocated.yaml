@@ -1,0 +1,16 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+- name: default-scheduler
+  pluginConfig:
+  - args:
+      scoringStrategy:
+        resources:
+        - name: cpu
+          weight: 2
+        - name: memory
+          weight: 1
+        - name: nvidia.com/gpu
+          weight: 3
+        type: MostAllocated
+    name: NodeResourcesFit

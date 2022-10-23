@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spread
+  labels:
+    app: spread
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: spread
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: spread
+    spec:
+      schedulerName: spread-scheduler
+      restartPolicy: Always
+      containers:
+      - image: nginx
+        name: spread
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi

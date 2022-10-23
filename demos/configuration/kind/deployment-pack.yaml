@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pack
+  labels:
+    app: pack
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: pack
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: pack
+    spec:
+      schedulerName: pack-scheduler
+      restartPolicy: Always
+      containers:
+      - image: nginx
+        name: pack
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi

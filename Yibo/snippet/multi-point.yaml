@@ -1,0 +1,20 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+- schedulerName: default-scheduler
+  plugins:
+    multiPoint:
+      enabled:
+      - name: CustomQueueSort
+      - name: CustomPlugin1
+        weight: 3
+      - name: CustomPlugin2
+        weight: 2
+      disabled:
+      - name: DefaultQueueSort
+    filter:
+      disabled:
+      - name: DefaultPlugin1
+    score:
+      enabled:
+      - name: DefaultPlugin2

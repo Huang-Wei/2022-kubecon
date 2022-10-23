@@ -1,0 +1,16 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+clientConnection:
+  kubeconfig: /etc/srv/kubernetes/kube-scheduler/kubeconfig
+leaderElection:
+  leaderElect: true
+  leaderElectLeaseDuration: 45s
+  leaderElectRenewDeadline: 30s
+profiles:
+- schedulerName: default-scheduler
+  plugins:
+    multiPoint:
+      enabled:
+      - name: Foo
+podInitialBackoffSeconds: 10
+podMaxBackoffSeconds: 100

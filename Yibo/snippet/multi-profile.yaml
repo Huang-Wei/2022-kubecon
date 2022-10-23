@@ -1,0 +1,38 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+- name: default-scheduler
+  plugins:
+    multiPoint:
+      enabled:
+      - name: MyCustomPluginA
+    queueSort:
+      enabled:
+      - name: MyAwesomeSort
+      disabled:
+      - name: "*"
+  pluginConfig:
+  - name: MyAwesomeSort
+    args:
+      sortingAlgorithm: BucketSort
+- name: second-scheduler
+  plugins:
+    queueSort:
+      enabled:
+      - name: MyAwesomeSort
+      disabled:
+      - name: "*"
+    preFilter:
+      enabled:
+      - name: MyCustomPluginB
+      disabled:
+      - name: "*"
+    filter:
+      enabled:
+      - name: MyCustomPluginB
+      disabled:
+      - name: "*"
+  pluginConfig:
+  - name: MyAwesomeSort
+    args:
+      sortingAlgorithm: BucketSort
