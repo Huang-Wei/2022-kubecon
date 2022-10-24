@@ -4,7 +4,6 @@ metadata:
   name: pod
 spec:
   schedulerName: default-kube-scheduler
-  priorityClassName: low-priority
   containers:
     - name: web
       image: nginx
