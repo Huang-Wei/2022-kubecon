@@ -1,5 +1,5 @@
 #!/bin/bash
 KUBERNETES_DIR=/home/yuan/kubernetes
-cmd="$KUBERNETES_DIR/_output/bin/kube-scheduler --config=./scheduler-config.yaml --v=5" # --write-config-to=./kube-scheduler-config.yaml"
+cmd="$KUBERNETES_DIR/_output/bin/kube-scheduler --config=./scheduler-config.yaml --v=5"
 echo $cmd
 $cmd
